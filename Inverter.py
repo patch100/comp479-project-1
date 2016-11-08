@@ -2,6 +2,7 @@ import cPickle
 import sys
 import uuid
 
+
 def spimi_invert(token_stream, block_size):
     dictionary = {}
     output_files = []
@@ -19,8 +20,11 @@ def spimi_invert(token_stream, block_size):
 
 def add_to_dictionary(token, dictionary):
     if dictionary.has_key(token[0]):
-        if token[1] not in dictionary[token[0]]:
+        if token[1][0] not in dictionary[token[0]]:
             dictionary[token[0]].append(token[1])
+        else:
+            index = dictionary[token[0]].index(token[1][0])
+            dictionary[token[0]][index][1] += 1
     else:
         dictionary[token[0]] = [token[1]]
     return dictionary
